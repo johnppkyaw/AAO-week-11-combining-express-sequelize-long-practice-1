@@ -4,7 +4,11 @@ const expect = chai.expect;
 
 describe('Phase 1 Specs - Tree', () => {
   let DB_TEST_FILE, SERVER_DB_TEST_FILE, models, server;
-  before(async () => ({ server, models, DB_TEST_FILE, SERVER_DB_TEST_FILE } = await setupBefore(__filename)));
+  before(async function() {
+    // this.timeout(5000);
+    ({ server, models, DB_TEST_FILE, SERVER_DB_TEST_FILE } = await setupBefore(__filename));
+  });
+
   after(async () => await removeTestDB(DB_TEST_FILE));
 
   context('Invalid Data', () => {
@@ -22,7 +26,7 @@ describe('Phase 1 Specs - Tree', () => {
       }
       expect.fail('Invalid Data Allowed in DB (check your constraints)');
     });
-  
+
     it('does not allow duplicate `tree` attribute values', async () => {
       try {
         await models.Tree.create({ tree: 'orange' });
@@ -32,7 +36,7 @@ describe('Phase 1 Specs - Tree', () => {
       }
       expect.fail('Invalid Data Allowed in DB (check your constraints)')
     });
-  
+
     it('does not allow `heightFt` attribute values less than 0', async () => {
       try {
         await models.Tree.create({ tree: 'lemon', heightFt: -1 })
@@ -41,7 +45,7 @@ describe('Phase 1 Specs - Tree', () => {
       }
       expect.fail('Invalid Data Allowed in DB (check your validations)')
     });
-  
+
     it('does not allow `groundCircumferenceFt` attribute values less than 0', async () => {
       try {
         await models.Tree.create({ tree: 'lime', groundCircumferenceFt: -1 })
