@@ -5,7 +5,7 @@ const expect = chai.expect;
 describe('Phase 1 Specs - Tree', () => {
   let DB_TEST_FILE, SERVER_DB_TEST_FILE, models, server;
   before(async function() {
-    // this.timeout(5000);
+    this.timeout(5000);
     ({ server, models, DB_TEST_FILE, SERVER_DB_TEST_FILE } = await setupBefore(__filename));
   });
 
